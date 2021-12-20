@@ -8,22 +8,18 @@ function App() {
    const [newTask, setNewTask] = useState("");
    const [todos, setTodos] = useState([]);
 
-
-  
-
-
    const handleSubmit = (e) => {
      e.preventDefault();
      if(newTask.length === 0){
        return;
      }
 
-     const todoItem = {
-      text: newTask,
-      complete: false,
-    }
-
-     setTodos([...todos, todoItem]);
+    setTodos([...todos, 
+      {
+        text: newTask,
+        complete: false,
+      }
+    ]);
      setNewTask("");
      
    };
@@ -58,21 +54,21 @@ const completeHandler = (i) => {
       </form>
 
       {
-        todos.map((todo, index) => {
+        todos.map((action, index) => {
           
           let todoClasses = "";
-          if(todo.complete){
+          if(action.complete){
             todoClasses="complete";
           }else{todoClasses = "incomplete"}
 
 
           return(
           <div className='items' key={index}>
-            <p className = {todoClasses}>{todo.text}</p>
+            <p className = {todoClasses}>{action.text}</p>
             <input className='checkBox' onChange={(e) =>{completeHandler(index);}}
               name="complete"
               type="checkbox"
-              checked = {todo.complete}
+              checked = {action.complete}
             />
             
             <button className='deleteButtons' onClick={()=>handleDelete(index)}>Delete </button>
